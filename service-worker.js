@@ -1,4 +1,4 @@
-const CACHE='ryasa-pwa-v1';
+const CACHE='ryasa-pwa-v2';
 const CORE=['/','/index.html','/manifest.webmanifest','/app-icon.svg','/ryasa-logo.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)));
