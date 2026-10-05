@@ -15,7 +15,7 @@ main{padding:16px;min-width:0}.kpis{display:grid;grid-template-columns:repeat(4,
 .row{display:flex;gap:9px;flex-wrap:wrap;align-items:end}.field{display:flex;flex-direction:column;gap:5px;min-width:120px}.grow{flex:1;min-width:240px}
 label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:1px solid #cbd5df;border-radius:8px;padding:10px;font-size:14px;background:#fff}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
 .tab{border:1px solid #cbd5df;background:#fff;padding:9px 14px;border-radius:8px;font-weight:800;cursor:pointer}.tab.active{background:var(--brand-blue);color:white;border-color:var(--brand-blue)}
-.searchwrap{position:relative;flex:1;min-width:260px}.results{position:absolute;z-index:20;left:0;right:0;top:61px;background:#fff;border:1px solid #ccd4dd;border-radius:9px;box-shadow:0 10px 25px rgba(0,0,0,.15);max-height:300px;overflow:auto;display:none}.result{padding:10px;border-bottom:1px solid #eef1f4;cursor:pointer}.result:hover{background:#f6faf7}.small{font-size:12px;color:var(--muted)}.price{color:var(--brand-blue);font-weight:800}.btn{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:pointer}.primary{background:var(--brand-red);color:#fff}.primary:hover{background:#c9151c}.secondary{background:#edf0f7;color:var(--brand-blue)}
+.searchwrap{position:relative;flex:1;min-width:260px}.results{position:absolute;z-index:20;left:0;right:0;top:61px;background:#fff;border:1px solid #ccd4dd;border-radius:9px;box-shadow:0 10px 25px rgba(0,0,0,.15);max-height:300px;overflow:auto;display:none}.result{padding:10px;border-bottom:1px solid #eef1f4;cursor:pointer}.result:hover{background:#f6faf7}.small{font-size:12px;color:var(--muted)}.price{color:var(--brand-blue);font-weight:800}.btn{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:pointer}.primary{background:var(--brand-red);color:#fff}.primary:hover{background:#c9151c}.secondary{background:#edf0f7;color:var(--brand-blue)}.danger{background:#fff0f0;color:#a61b1b;border:1px solid #f1b5b5}.danger:hover{background:#ffe3e3}
 .wh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.warehouse{border:1px solid var(--line);border-radius:9px;padding:10px}.warehouse.ok{background:#f2faf5;border-color:#b8dcc5}.oktxt{color:var(--green);font-weight:800}.notxt{color:var(--red);font-weight:800}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:14px}table{border-collapse:collapse;width:100%;min-width:1050px}th,td{padding:9px;border-bottom:1px solid #e8ecf0;font-size:12px;text-align:left}th{background:#f8fafc}.num{text-align:right}
 .summary{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-top:14px}.totals{padding:13px}.trow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d7dde5}.grand{font-size:19px;font-weight:900;border-bottom:0}
@@ -69,7 +69,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div><div class="row"><div class="field grow"><label>Tiempo de entrega</label><input value="Inmediato cuando exista en almacén"></div><div class="field"><label>Vigencia</label><input value="15 días"></div></div><div class="field" style="margin-top:9px"><label>Notas</label><textarea placeholder="Observaciones"></textarea></div></div>
 <div class="card totals"><div class="trow"><span>Subtotal</span><b id="subtotal">$0.00 USD</b></div><div class="trow"><span>IVA</span><b id="tax">$0.00 USD</b></div><div class="trow grand"><span>Total</span><span id="total">$0.00 USD</span></div><div id="fxnote" class="small"></div></div>
 </div>
-<div class="actions"><button id="sendEmail" class="btn secondary" type="button">Enviar por correo</button><button id="sendWhatsApp" class="btn secondary" type="button">Enviar por WhatsApp</button><button class="btn secondary" onclick="window.print()">Imprimir / PDF</button><button id="finish" class="btn primary">Finalizar cotización</button></div>
+<div class="actions"><button id="deleteQuote" class="btn danger" type="button">Eliminar cotización</button><button id="sendEmail" class="btn secondary" type="button">Enviar por correo</button><button id="sendWhatsApp" class="btn secondary" type="button">Enviar por WhatsApp</button><button class="btn secondary" onclick="window.print()">Imprimir / PDF</button><button id="finish" class="btn primary">Finalizar cotización</button></div>
 </section>
 
 <section id="page-home" class="app-page">
@@ -198,6 +198,25 @@ $('sendWhatsApp').onclick=()=>{
   if(!phone) return;
   const url='https://wa.me/'+phone+'?text='+encodeURIComponent(quoteShareText());
   window.open(url,'_blank','noopener');
+};
+$('deleteQuote').onclick=()=>{
+  const hasData=lines.length || $('client').value || $('clientEmail').value.trim() || $('clientWhatsApp').value.trim() || $('search').value.trim();
+  if(!hasData){alert('No hay una cotización en proceso para eliminar.');return}
+  if(!confirm('¿Seguro que deseas eliminar toda la cotización en proceso? Esta acción limpiará todas las partidas y datos capturados.')) return;
+  lines=[];
+  selected=null;
+  $('client').value='';
+  $('clientEmail').value='';
+  $('clientWhatsApp').value='';
+  $('search').value='';
+  $('qty').value='1';
+  $('disc').value='0';
+  $('selectedInfo').textContent='';
+  $('results').style.display='none';
+  updateAssignedDiscount();
+  renderWh(null);
+  render();
+  alert('Cotización eliminada.');
 };
 ['currency','fx','vat'].forEach(id=>$(id).oninput=recalc);$('finish').onclick=()=>alert(lines.length?'Demo: cotización lista para guardar/generar PDF.':'Agrega al menos una partida.');renderWh(null);render();
 
