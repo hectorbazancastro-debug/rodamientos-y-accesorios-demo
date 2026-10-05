@@ -45,7 +45,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div class="kpi"><strong>0</strong><span>NSK pendiente</span></div>
 </div>
 <div class="row">
-<div class="field grow"><label>Cliente</label><input id="client" placeholder="Nombre o razón social"></div>
+<div class="field grow"><label>Cliente</label><input id="client" placeholder="Nombre o razón social"></div><div class="field"><label>Correo</label><input id="clientEmail" type="email" placeholder="cliente@empresa.com"></div><div class="field"><label>WhatsApp</label><input id="clientWhatsApp" placeholder="5216121234567"></div>
 <div class="field"><label>Moneda</label><select id="currency"><option>USD</option><option>MXN</option></select></div>
 <div class="field"><label>Tipo de cambio</label><input id="fx" type="number" value="18.50" step=".01"></div>
 <div class="field"><label>IVA %</label><input id="vat" type="number" value="16" step=".1"></div>
@@ -69,7 +69,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div><div class="row"><div class="field grow"><label>Tiempo de entrega</label><input value="Inmediato cuando exista en almacén"></div><div class="field"><label>Vigencia</label><input value="15 días"></div></div><div class="field" style="margin-top:9px"><label>Notas</label><textarea placeholder="Observaciones"></textarea></div></div>
 <div class="card totals"><div class="trow"><span>Subtotal</span><b id="subtotal">$0.00 USD</b></div><div class="trow"><span>IVA</span><b id="tax">$0.00 USD</b></div><div class="trow grand"><span>Total</span><span id="total">$0.00 USD</span></div><div id="fxnote" class="small"></div></div>
 </div>
-<div class="actions"><button class="btn secondary" onclick="window.print()">Imprimir / PDF</button><button id="finish" class="btn primary">Finalizar cotización</button></div>
+<div class="actions"><button id="sendEmail" class="btn secondary" type="button">Enviar por correo</button><button id="sendWhatsApp" class="btn secondary" type="button">Enviar por WhatsApp</button><button class="btn secondary" onclick="window.print()">Imprimir / PDF</button><button id="finish" class="btn primary">Finalizar cotización</button></div>
 </section>
 
 <section id="page-home" class="app-page">
@@ -164,6 +164,41 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelect
 $('add').onclick=()=>{if(!selected){alert('Selecciona primero un producto.');return}const qty=Math.max(1,Math.floor(+$('qty').value||1)),disc=Math.max(0,Math.min(100,+$('disc').value||0)),wh=availability(selected.p),aw=wh.filter(w=>w.ok);lines.push({...selected,brand:'SKF',qty,disc,wh,source:aw.length?aw[0].name:'Sin existencia'});selected=null;$('search').value='';$('selectedInfo').textContent='';renderWh(null);render()};
 function render(){ $('items').innerHTML=lines.map((x,i)=>{const aw=x.wh.filter(w=>w.ok),imp=x.pr*(1-x.disc/100)*x.qty,opts=aw.length?aw.map(w=>'<option>'+w.name+' · '+w.stock+' pzas</option>').join(''):'<option>Sin existencia</option>';return '<tr><td><b>'+x.brand+'</b></td><td><b>'+x.p+'</b></td><td>'+x.d+'</td><td><select '+(aw.length?'':'disabled')+'>'+opts+'</select></td><td>'+(aw.length?'<span class="oktxt">Inmediata</span>':'<span class="notxt">Por confirmar</span>')+'</td><td class="num">'+x.qty+'</td><td class="num">'+money(x.pr,'USD')+'</td><td class="num">'+x.disc.toFixed(1)+'%</td><td class="num"><b>'+money(imp,'USD')+'</b></td><td><button class="btn secondary" data-rm="'+i+'">Quitar</button></td></tr>'}).join('');document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{lines.splice(+b.dataset.rm,1);render()});recalc()}
 function recalc(){const sub=lines.reduce((s,x)=>s+x.pr*(1-x.disc/100)*x.qty,0),vp=Math.max(0,+$('vat').value||0),tax=sub*vp/100,total=sub+tax,c=$('currency').value,fx=Math.max(.01,+$('fx').value||1),m=c==='MXN'?fx:1;$('subtotal').textContent=money(sub*m,c);$('tax').textContent=money(tax*m,c);$('total').textContent=money(total*m,c);$('fxnote').textContent=c==='MXN'?'Base '+money(total,'USD')+' · TC '+fx.toFixed(2):'Precios base en USD'}
+
+function quoteShareText(){
+  if(!lines.length) return '';
+  const client=$('client').value.trim()||'Cliente';
+  const ccy=$('currency').value;
+  const fx=Math.max(.01,+$('fx').value||1);
+  const vat=Math.max(0,+$('vat').value||0);
+  const sub=lines.reduce((s,x)=>s+x.pr*(1-x.disc/100)*x.qty,0);
+  const tax=sub*vat/100;
+  const total=sub+tax;
+  const m=ccy==='MXN'?fx:1;
+  const parts=lines.map((x,i)=>{
+    const imp=x.pr*(1-x.disc/100)*x.qty*m;
+    return (i+1)+'. '+x.brand+' '+x.p+' | '+x.d+' | Cant. '+x.qty+' | Desc. '+x.disc.toFixed(1)+'% | '+money(imp,ccy);
+  }).join('\n');
+  return 'RYASA – Rodamientos y Accesorios\nCotización\nCliente: '+client+'\n\n'+parts+'\n\nSubtotal: '+money(sub*m,ccy)+'\nIVA '+vat.toFixed(1)+'%: '+money(tax*m,ccy)+'\nTOTAL: '+money(total*m,ccy)+'\n\nVigencia: 15 días\nGracias por su preferencia.';
+}
+$('sendEmail').onclick=()=>{
+  if(!lines.length){alert('Agrega al menos una partida antes de enviar.');return}
+  let email=$('clientEmail').value.trim();
+  if(!email) email=prompt('Correo del cliente:')||'';
+  if(!email) return;
+  const subject='Cotización RYASA - '+($('client').value.trim()||'Cliente');
+  const body=quoteShareText();
+  window.location.href='mailto:'+encodeURIComponent(email)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+};
+$('sendWhatsApp').onclick=()=>{
+  if(!lines.length){alert('Agrega al menos una partida antes de enviar.');return}
+  let phone=$('clientWhatsApp').value.trim();
+  if(!phone) phone=prompt('Número de WhatsApp con código de país. Ejemplo México: 5216121234567')||'';
+  phone=phone.replace(/\D/g,'');
+  if(!phone) return;
+  const url='https://wa.me/'+phone+'?text='+encodeURIComponent(quoteShareText());
+  window.open(url,'_blank','noopener');
+};
 ['currency','fx','vat'].forEach(id=>$(id).oninput=recalc);$('finish').onclick=()=>alert(lines.length?'Demo: cotización lista para guardar/generar PDF.':'Agrega al menos una partida.');renderWh(null);render();
 
 const demoClients=[
