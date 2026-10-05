@@ -26,7 +26,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <body>
 <header><div class="brand-lockup"><img class="ryasa-logo" src="/ryasa-logo.png" alt="Logo RYASA"><div class="brand-copy"><div class="ryasa">RYASA – Rodamientos y Accesorios</div><div class="sub">COTIZADOR MULTIMARCA DE RODAMIENTOS</div></div></div><div class="header-actions"><div class="badge">APLICACIÓN DE COTIZACIÓN</div><button id="installApp" class="install-app" type="button">Instalar aplicación</button></div></header>
 <div class="wrap">
-<div class="notice" style="border-left:4px solid var(--brand-red)"><b>Rodamientos y Accesorios.</b> Vista alineada a la identidad institucional de RYASA. SKF tiene un catálogo maestro de 50,689 registros; esta publicación inicial usa una muestra para validar la operación del cotizador.</div>
+<div class="notice" style="border-left:4px solid var(--brand-red)"><b>Rodamientos y Accesorios.</b> Modo demostración: SKF contiene únicamente 20 artículos con precios de ejemplo para validar la operación del cotizador. No corresponden a la lista de precios oficial.</div>
 <div class="grid">
 <aside class="card"><div style="font-weight:900;margin-bottom:9px">Menú</div>
   <div class="nav" data-page="home">Inicio / Resumen</div>
@@ -39,7 +39,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <main class="card">
 <section id="page-quote" class="app-page active">
 <div class="kpis">
-<div class="kpi" style="border-top-color:var(--brand-red)"><strong>50,689</strong><span>SKF catálogo maestro</span></div>
+<div class="kpi" style="border-top-color:var(--brand-red)"><strong>20</strong><span>SKF · precios de ejemplo</span></div>
 <div class="kpi"><strong>0</strong><span>CPR pendiente</span></div>
 <div class="kpi"><strong>0</strong><span>Timken pendiente</span></div>
 <div class="kpi"><strong>0</strong><span>NSK pendiente</span></div>
@@ -53,7 +53,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div class="tabs">
 <button class="tab active" data-brand="SKF">SKF</button><button class="tab" data-brand="CPR">CPR</button><button class="tab" data-brand="TIMKEN">Timken</button><button class="tab" data-brand="NSK">NSK</button>
 </div>
-<div id="brandNote" class="small" style="margin-bottom:8px">SKF activo · precios base en USD</div>
+<div id="brandNote" class="small" style="margin-bottom:8px">SKF demo · 20 artículos con precios de ejemplo en USD</div>
 <div class="row">
 <div class="field searchwrap"><label>Buscar producto</label><input id="search" autocomplete="off" placeholder="Ej. 6205, 22210, NU 208..."><div id="results" class="results"></div></div>
 <div class="field"><label>Cantidad</label><input id="qty" type="number" min="1" value="1"></div>
@@ -76,7 +76,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
   <div class="page-title">Inicio / Resumen</div>
   <div class="page-sub">Panel general del cotizador RYASA.</div>
   <div class="kpis">
-    <div class="kpi" style="border-top-color:var(--brand-red)"><strong>50,689</strong><span>Productos SKF maestro</span></div>
+    <div class="kpi" style="border-top-color:var(--brand-red)"><strong>20</strong><span>Productos SKF de ejemplo</span></div>
     <div class="kpi"><strong>20</strong><span>Clientes de ejemplo</span></div>
     <div class="kpi"><strong>4</strong><span>Marcas configuradas</span></div>
     <div class="kpi"><strong>3</strong><span>Almacenes</span></div>
@@ -92,7 +92,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
   <div class="page-title">Catálogos</div>
   <div class="page-sub">Administración de marcas y listas de precios.</div>
   <div class="mini-grid">
-    <div class="panel brand-card red"><h3>SKF</h3><strong>50,689</strong><p class="small">Registros en catálogo maestro</p><span class="status">Cargado</span></div>
+    <div class="panel brand-card red"><h3>SKF</h3><strong>20</strong><p class="small">Artículos con precios de ejemplo</p><span class="status">Demostración</span></div>
     <div class="panel brand-card"><h3>CPR</h3><strong>0</strong><p class="small">Pendiente de cargar Excel/CSV</p><span class="status pending">Pendiente</span></div>
     <div class="panel brand-card"><h3>Timken</h3><strong>0</strong><p class="small">Pendiente de cargar Excel/CSV</p><span class="status pending">Pendiente</span></div>
     <div class="panel brand-card"><h3>NSK</h3><strong>0</strong><p class="small">Pendiente de cargar Excel/CSV</p><span class="status pending">Pendiente</span></div>
@@ -146,21 +146,35 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 </main></div></div>
 <script>
 const catalog=[
-{p:'6205-2Z/C3',d:'Rodamiento rígido de bolas',pr:18.75},{p:'6206-2RS1/C3',d:'Rodamiento rígido de bolas',pr:24.90},
-{p:'22210 E',d:'Rodamiento de rodillos a rótula',pr:132.40},{p:'30206 J2/Q',d:'Rodamiento de rodillos cónicos',pr:39.85},
-{p:'FY 25 TF',d:'Unidad de rodamiento',pr:44.20},{p:'6308-2Z/C3',d:'Rodamiento rígido de bolas',pr:46.50},
-{p:'NU 208 ECP',d:'Rodamiento de rodillos cilíndricos',pr:88.60},{p:'1208 EKTN9',d:'Rodamiento autoalineable de bolas',pr:72.15},
-{p:'6207-2RS1/C3',d:'Rodamiento rígido de bolas',pr:31.20},{p:'22312 E',d:'Rodamiento de rodillos a rótula',pr:246.80},
-{p:'32008 X/Q',d:'Rodamiento de rodillos cónicos',pr:58.10},{p:'UC 205',d:'Unidad de rodamiento',pr:33.40}
-];
+{p:'6205-2Z/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:18.75},
+{p:'6206-2RS1/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:24.90},
+{p:'22210 E',d:'Rodamiento de rodillos a rótula · EJEMPLO',pr:132.40},
+{p:'30206 J2/Q',d:'Rodamiento de rodillos cónicos · EJEMPLO',pr:39.85},
+{p:'FY 25 TF',d:'Unidad de rodamiento · EJEMPLO',pr:44.20},
+{p:'6308-2Z/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:46.50},
+{p:'NU 208 ECP',d:'Rodamiento de rodillos cilíndricos · EJEMPLO',pr:88.60},
+{p:'1208 EKTN9',d:'Rodamiento autoalineable de bolas · EJEMPLO',pr:72.15},
+{p:'6207-2RS1/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:31.20},
+{p:'22312 E',d:'Rodamiento de rodillos a rótula · EJEMPLO',pr:246.80},
+{p:'32008 X/Q',d:'Rodamiento de rodillos cónicos · EJEMPLO',pr:58.10},
+{p:'UC 205',d:'Unidad de rodamiento · EJEMPLO',pr:33.40},
+{p:'6204-2Z/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:15.60},
+{p:'6208-2RS1/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:38.90},
+{p:'6305-2RS1/C3',d:'Rodamiento rígido de bolas · EJEMPLO',pr:27.50},
+{p:'22212 E',d:'Rodamiento de rodillos a rótula · EJEMPLO',pr:168.00},
+{p:'30306 J2/Q',d:'Rodamiento de rodillos cónicos · EJEMPLO',pr:52.30},
+{p:'NU 210 ECP',d:'Rodamiento de rodillos cilíndricos · EJEMPLO',pr:112.75},
+{p:'FY 30 TF',d:'Unidad de rodamiento · EJEMPLO',pr:51.90},
+{p:'1209 EKTN9',d:'Rodamiento autoalineable de bolas · EJEMPLO',pr:79.40}
+]
 let brand='SKF',selected=null,lines=[];const $=id=>document.getElementById(id);
 const money=(v,c)=>new Intl.NumberFormat('en-US',{style:'currency',currency:c}).format(v||0);
 function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function availability(part){return ['La Paz','Tijuana','Mexicali'].map(n=>{const h=hash(part+'|'+n),ok=(h%100)<60;return{name:n,ok,stock:ok?2+((h>>>8)%28):0}})}
 function renderWh(part){const a=part?availability(part):['La Paz','Tijuana','Mexicali'].map(name=>({name,ok:null,stock:0}));$('warehouses').innerHTML=a.map(w=>'<div class="warehouse '+(w.ok===true?'ok':'')+'"><b>'+w.name+'</b><div class="'+(w.ok===true?'oktxt':w.ok===false?'notxt':'small')+'">'+(w.ok===null?'Selecciona un producto':w.ok?'Disponible · Entrega inmediata':'Sin existencia')+'</div><div class="small">'+(w.ok?'Existencia simulada: '+w.stock+' pzas':'')+'</div></div>').join('')}
-function doSearch(){const s=$('search').value.trim().toUpperCase(),box=$('results');if(brand!=='SKF'||s.length<2){box.style.display='none';return}const hits=catalog.filter(x=>(x.p+' '+x.d).toUpperCase().includes(s));box.innerHTML=hits.length?hits.map(x=>'<div class="result" data-p="'+x.p+'"><b>'+x.p+'</b><div class="small">'+x.d+' · <span class="price">'+money(x.pr,'USD')+'</span></div></div>').join(''):'<div class="result">Sin resultados en la muestra.</div>';box.style.display='block';box.querySelectorAll('[data-p]').forEach(el=>el.onclick=()=>{selected=catalog.find(x=>x.p===el.dataset.p);$('search').value=selected.p;box.style.display='none';$('selectedInfo').innerHTML='Seleccionado: <b>'+selected.p+'</b> · '+selected.d+' · '+money(selected.pr,'USD');renderWh(selected.p)})}
+function doSearch(){const s=$('search').value.trim().toUpperCase(),box=$('results');if(brand!=='SKF'||s.length<2){box.style.display='none';return}const hits=catalog.filter(x=>(x.p+' '+x.d).toUpperCase().includes(s));box.innerHTML=hits.length?hits.map(x=>'<div class="result" data-p="'+x.p+'"><b>'+x.p+'</b><div class="small">'+x.d+' · <span class="price">'+money(x.pr,'USD')+'</span></div></div>').join(''):'<div class="result">Sin resultados entre los 20 artículos de ejemplo.</div>';box.style.display='block';box.querySelectorAll('[data-p]').forEach(el=>el.onclick=()=>{selected=catalog.find(x=>x.p===el.dataset.p);$('search').value=selected.p;box.style.display='none';$('selectedInfo').innerHTML='Seleccionado: <b>'+selected.p+'</b> · '+selected.d+' · '+money(selected.pr,'USD');renderWh(selected.p)})}
 $('search').oninput=doSearch;
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');brand=b.dataset.brand;selected=null;$('search').value='';$('results').style.display='none';$('search').disabled=brand!=='SKF';$('add').disabled=brand!=='SKF';$('brandNote').textContent=brand==='SKF'?'SKF activo · precios base en USD':'Catálogo '+brand+' pendiente de cargar';updateAssignedDiscount();renderWh(null)});
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');brand=b.dataset.brand;selected=null;$('search').value='';$('results').style.display='none';$('search').disabled=brand!=='SKF';$('add').disabled=brand!=='SKF';$('brandNote').textContent=brand==='SKF'?'SKF demo · 20 artículos con precios de ejemplo en USD':'Catálogo '+brand+' pendiente de cargar';updateAssignedDiscount();renderWh(null)});
 $('add').onclick=()=>{if(!selected){alert('Selecciona primero un producto.');return}const qty=Math.max(1,Math.floor(+$('qty').value||1)),disc=getAssignedDiscount(),wh=availability(selected.p),aw=wh.filter(w=>w.ok);lines.push({...selected,brand:'SKF',qty,disc,wh,source:aw.length?aw[0].name:'Sin existencia'});selected=null;$('search').value='';$('selectedInfo').textContent='';renderWh(null);render()};
 function render(){ $('items').innerHTML=lines.map((x,i)=>{const aw=x.wh.filter(w=>w.ok),imp=x.pr*(1-x.disc/100)*x.qty,opts=aw.length?aw.map(w=>'<option>'+w.name+' · '+w.stock+' pzas</option>').join(''):'<option>Sin existencia</option>';return '<tr><td><b>'+x.brand+'</b></td><td><b>'+x.p+'</b></td><td>'+x.d+'</td><td><select '+(aw.length?'':'disabled')+'>'+opts+'</select></td><td>'+(aw.length?'<span class="oktxt">Inmediata</span>':'<span class="notxt">Por confirmar</span>')+'</td><td class="num">'+x.qty+'</td><td class="num">'+money(x.pr,'USD')+'</td><td class="num">'+x.disc.toFixed(1)+'%</td><td class="num"><b>'+money(imp,'USD')+'</b></td><td><button class="btn secondary" data-rm="'+i+'">Quitar</button></td></tr>'}).join('');document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{lines.splice(+b.dataset.rm,1);render()});recalc()}
 function recalc(){const sub=lines.reduce((s,x)=>s+x.pr*(1-x.disc/100)*x.qty,0),vp=Math.max(0,+$('vat').value||0),tax=sub*vp/100,total=sub+tax,c=$('currency').value,fx=Math.max(.01,+$('fx').value||1),m=c==='MXN'?fx:1;$('subtotal').textContent=money(sub*m,c);$('tax').textContent=money(tax*m,c);$('total').textContent=money(total*m,c);$('fxnote').textContent=c==='MXN'?'Base '+money(total,'USD')+' · TC '+fx.toFixed(2):'Precios base en USD'}
