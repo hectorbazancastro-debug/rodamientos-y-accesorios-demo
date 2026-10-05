@@ -1,0 +1,27 @@
+{
+  "name": "RYASA – Rodamientos y Accesorios",
+  "short_name": "RYASA",
+  "description": "Cotizador multimarca de rodamientos RYASA",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f6f9",
+  "theme_color": "#1D2B67",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/ryasa-logo.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
