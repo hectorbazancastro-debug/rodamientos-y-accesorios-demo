@@ -4,18 +4,18 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rodamientos y Accesorios</title>
 <style>
-:root{--bg:#f4f6f8;--card:#fff;--ink:#15202b;--muted:#667085;--line:#d7dde5;--nav:#17212b;--green:#08733f;--green2:#0b8b4d;--soft:#eef8f2;--red:#a61b1b}
+:root{--bg:#f5f6f9;--card:#fff;--ink:#18213f;--muted:#667085;--line:#d9deea;--nav:#1D2B67;--nav2:#142052;--brand-red:#ED1C24;--brand-blue:#1D2B67;--soft:#eef1f8;--green:#08733f;--red:#a61b1b}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
-header{background:var(--nav);color:#fff;padding:16px 20px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-.brand{font-size:22px;font-weight:900}.badge{font-size:12px;background:#334155;padding:6px 10px;border-radius:999px}
+header{background:linear-gradient(110deg,var(--nav2),var(--brand-blue));color:#fff;padding:15px 20px;border-bottom:4px solid var(--brand-red);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.brand-lockup{display:flex;align-items:center;gap:12px}.logo-mark{width:48px;height:48px;border-radius:50%;border:4px solid #fff;display:grid;place-items:center;font-weight:900;font-size:22px;position:relative}.logo-mark:after{content:'';position:absolute;right:-5px;bottom:1px;width:14px;height:14px;background:var(--brand-red);transform:rotate(45deg)}.brand-copy{line-height:1}.brand-copy .ryasa{font-size:27px;font-weight:900;letter-spacing:.5px}.brand-copy .sub{font-size:10px;letter-spacing:2.1px;margin-top:5px}.badge{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:999px}
 .wrap{max-width:1450px;margin:auto;padding:16px}.notice{background:#fff8dc;border:1px solid #ead178;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:13px}
 .grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:14px}
-aside{padding:14px;height:fit-content}.nav{padding:10px 11px;border-radius:9px;margin:3px 0}.nav.active{background:var(--soft);color:var(--green);font-weight:800}
-main{padding:16px;min-width:0}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.kpi{padding:12px;border:1px solid var(--line);border-radius:10px}.kpi strong{display:block;font-size:20px}.kpi span{font-size:12px;color:var(--muted)}
+aside{padding:14px;height:fit-content}.nav{padding:10px 11px;border-radius:9px;margin:3px 0}.nav.active{background:var(--soft);color:var(--brand-blue);font-weight:800;border-left:4px solid var(--brand-red)}
+main{padding:16px;min-width:0}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.kpi{padding:12px;border:1px solid var(--line);border-radius:10px;border-top:3px solid var(--brand-blue)}.kpi strong{display:block;font-size:20px}.kpi span{font-size:12px;color:var(--muted)}
 .row{display:flex;gap:9px;flex-wrap:wrap;align-items:end}.field{display:flex;flex-direction:column;gap:5px;min-width:120px}.grow{flex:1;min-width:240px}
 label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:1px solid #cbd5df;border-radius:8px;padding:10px;font-size:14px;background:#fff}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
-.tab{border:1px solid #cbd5df;background:#fff;padding:9px 14px;border-radius:8px;font-weight:800;cursor:pointer}.tab.active{background:var(--nav);color:white}
-.searchwrap{position:relative;flex:1;min-width:260px}.results{position:absolute;z-index:20;left:0;right:0;top:61px;background:#fff;border:1px solid #ccd4dd;border-radius:9px;box-shadow:0 10px 25px rgba(0,0,0,.15);max-height:300px;overflow:auto;display:none}.result{padding:10px;border-bottom:1px solid #eef1f4;cursor:pointer}.result:hover{background:#f6faf7}.small{font-size:12px;color:var(--muted)}.price{color:var(--green);font-weight:800}.btn{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:#edf2f7;color:#334155}
+.tab{border:1px solid #cbd5df;background:#fff;padding:9px 14px;border-radius:8px;font-weight:800;cursor:pointer}.tab.active{background:var(--brand-blue);color:white;border-color:var(--brand-blue)}
+.searchwrap{position:relative;flex:1;min-width:260px}.results{position:absolute;z-index:20;left:0;right:0;top:61px;background:#fff;border:1px solid #ccd4dd;border-radius:9px;box-shadow:0 10px 25px rgba(0,0,0,.15);max-height:300px;overflow:auto;display:none}.result{padding:10px;border-bottom:1px solid #eef1f4;cursor:pointer}.result:hover{background:#f6faf7}.small{font-size:12px;color:var(--muted)}.price{color:var(--brand-blue);font-weight:800}.btn{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:pointer}.primary{background:var(--brand-red);color:#fff}.primary:hover{background:#c9151c}.secondary{background:#edf0f7;color:var(--brand-blue)}
 .wh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.warehouse{border:1px solid var(--line);border-radius:9px;padding:10px}.warehouse.ok{background:#f2faf5;border-color:#b8dcc5}.oktxt{color:var(--green);font-weight:800}.notxt{color:var(--red);font-weight:800}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:14px}table{border-collapse:collapse;width:100%;min-width:1050px}th,td{padding:9px;border-bottom:1px solid #e8ecf0;font-size:12px;text-align:left}th{background:#f8fafc}.num{text-align:right}
 .summary{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-top:14px}.totals{padding:13px}.trow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d7dde5}.grand{font-size:19px;font-weight:900;border-bottom:0}
@@ -24,14 +24,14 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 </style>
 </head>
 <body>
-<header><div class="brand">Rodamientos y Accesorios</div><div class="badge">DEMO WEB</div></header>
+<header><div class="brand-lockup"><div class="logo-mark">R</div><div class="brand-copy"><div class="ryasa">RYASA</div><div class="sub">RODAMIENTOS Y ACCESORIOS</div></div></div><div class="badge">APLICACIÓN DE COTIZACIÓN</div></header>
 <div class="wrap">
-<div class="notice"><b>Demo funcional.</b> SKF tiene un catálogo maestro de 50,689 registros; esta publicación inicial usa una muestra para validar la operación del cotizador. Los almacenes son simulados.</div>
+<div class="notice" style="border-left:4px solid var(--brand-red)"><b>Rodamientos y Accesorios.</b> Vista alineada a la identidad institucional de RYASA. SKF tiene un catálogo maestro de 50,689 registros; esta publicación inicial usa una muestra para validar la operación del cotizador.</div>
 <div class="grid">
 <aside class="card"><div style="font-weight:900;margin-bottom:9px">Menú</div><div class="nav">Inicio / Resumen</div><div class="nav active">Nueva cotización</div><div class="nav">Catálogos</div><div class="nav">Clientes</div><div class="nav">Cotizaciones</div><div class="nav">Configuración</div></aside>
 <main class="card">
 <div class="kpis">
-<div class="kpi"><strong>50,689</strong><span>SKF catálogo maestro</span></div>
+<div class="kpi" style="border-top-color:var(--brand-red)"><strong>50,689</strong><span>SKF catálogo maestro</span></div>
 <div class="kpi"><strong>0</strong><span>CPR pendiente</span></div>
 <div class="kpi"><strong>0</strong><span>Timken pendiente</span></div>
 <div class="kpi"><strong>0</strong><span>NSK pendiente</span></div>
