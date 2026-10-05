@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1D2B67"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="RYASA"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/ryasa-logo.png">
 <title>RYASA – Rodamientos y Accesorios</title><link rel="icon" type="image/png" href="/ryasa-logo.png">
 <style>
 :root{--bg:#f5f6f9;--card:#fff;--ink:#18213f;--muted:#667085;--line:#d9deea;--nav:#1D2B67;--nav2:#142052;--brand-red:#ED1C24;--brand-blue:#1D2B67;--soft:#eef1f8;--green:#08733f;--red:#a61b1b}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:linear-gradient(110deg,var(--nav2),var(--brand-blue));color:#fff;padding:15px 20px;border-bottom:4px solid var(--brand-red);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-.brand-lockup{display:flex;align-items:center;gap:12px}.ryasa-logo{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;padding:4px}.brand-copy{line-height:1}.brand-copy{line-height:1}.brand-copy .ryasa{font-size:27px;font-weight:900;letter-spacing:.5px}.brand-copy .sub{font-size:10px;letter-spacing:2.1px;margin-top:5px}.badge{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:999px}
+.brand-lockup{display:flex;align-items:center;gap:12px}.ryasa-logo{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;padding:4px}.brand-copy{line-height:1}.brand-copy{line-height:1}.brand-copy .ryasa{font-size:27px;font-weight:900;letter-spacing:.5px}.brand-copy .sub{font-size:10px;letter-spacing:2.1px;margin-top:5px}.badge{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:999px}.header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.install-app{border:1px solid rgba(255,255,255,.5);background:#fff;color:var(--brand-blue);padding:8px 12px;border-radius:9px;font-weight:900;cursor:pointer}.install-app:hover{background:#f3f5fb}.install-app[hidden]{display:none}
 .wrap{max-width:1450px;margin:auto;padding:16px}.notice{background:#fff8dc;border:1px solid #ead178;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:13px}
 .grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:14px}
 aside{padding:14px;height:fit-content}.nav{padding:10px 11px;border-radius:9px;margin:3px 0;cursor:pointer;user-select:none;transition:.15s}.nav:hover{background:#f4f6fb}.nav.active{background:var(--soft);color:var(--brand-blue);font-weight:800;border-left:4px solid var(--brand-red)}
@@ -24,7 +24,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 </style>
 </head>
 <body>
-<header><div class="brand-lockup"><img class="ryasa-logo" src="/ryasa-logo.png" alt="Logo RYASA"><div class="brand-copy"><div class="ryasa">RYASA – Rodamientos y Accesorios</div><div class="sub">COTIZADOR MULTIMARCA DE RODAMIENTOS</div></div></div><div class="badge">APLICACIÓN DE COTIZACIÓN</div></header>
+<header><div class="brand-lockup"><img class="ryasa-logo" src="/ryasa-logo.png" alt="Logo RYASA"><div class="brand-copy"><div class="ryasa">RYASA – Rodamientos y Accesorios</div><div class="sub">COTIZADOR MULTIMARCA DE RODAMIENTOS</div></div></div><div class="header-actions"><div class="badge">APLICACIÓN DE COTIZACIÓN</div><button id="installApp" class="install-app" type="button">Instalar aplicación</button></div></header>
 <div class="wrap">
 <div class="notice" style="border-left:4px solid var(--brand-red)"><b>Rodamientos y Accesorios.</b> Vista alineada a la identidad institucional de RYASA. SKF tiene un catálogo maestro de 50,689 registros; esta publicación inicial usa una muestra para validar la operación del cotizador.</div>
 <div class="grid">
@@ -247,5 +247,39 @@ if(addClientDemo)addClientDemo.addEventListener('click',()=>{
  alert('Cliente agregado a la vista de demostración. Los descuentos quedan en 0% hasta ser asignados por un nivel autorizado.');
 });
 renderClients();
+
+
+let deferredInstallPrompt=null;
+const installButton=document.getElementById('installApp');
+const isStandalone=window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+
+if(isStandalone && installButton) installButton.hidden=true;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredInstallPrompt=e;
+  if(installButton) installButton.hidden=false;
+});
+if(installButton){
+  if(!isStandalone) installButton.hidden=false;
+  installButton.addEventListener('click',async()=>{
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt=null;
+      installButton.hidden=true;
+      return;
+    }
+    if(isIOS){
+      alert('En iPhone/iPad: abre esta página en Safari, toca Compartir y selecciona “Agregar a pantalla de inicio”.');
+      return;
+    }
+    alert('En el menú del navegador selecciona “Instalar aplicación” o “Agregar a pantalla de inicio”.');
+  });
+}
+window.addEventListener('appinstalled',()=>{if(installButton) installButton.hidden=true;});
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));
+}
 
 </script></body></html>
