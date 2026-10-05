@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rodamientos y Accesorios</title>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#15202b;--muted:#667085;--line:#d7dde5;--nav:#17212b;--green:#08733f;--green2:#0b8b4d;--soft:#eef8f2;--red:#a61b1b}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--nav);color:#fff;padding:16px 20px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:900}.badge{font-size:12px;background:#334155;padding:6px 10px;border-radius:999px}
+.wrap{max-width:1450px;margin:auto;padding:16px}.notice{background:#fff8dc;border:1px solid #ead178;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:13px}
+.grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:14px}
+aside{padding:14px;height:fit-content}.nav{padding:10px 11px;border-radius:9px;margin:3px 0}.nav.active{background:var(--soft);color:var(--green);font-weight:800}
+main{padding:16px;min-width:0}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.kpi{padding:12px;border:1px solid var(--line);border-radius:10px}.kpi strong{display:block;font-size:20px}.kpi span{font-size:12px;color:var(--muted)}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:end}.field{display:flex;flex-direction:column;gap:5px;min-width:120px}.grow{flex:1;min-width:240px}
+label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:1px solid #cbd5df;border-radius:8px;padding:10px;font-size:14px;background:#fff}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
+.tab{border:1px solid #cbd5df;background:#fff;padding:9px 14px;border-radius:8px;font-weight:800;cursor:pointer}.tab.active{background:var(--nav);color:white}
+.searchwrap{position:relative;flex:1;min-width:260px}.results{position:absolute;z-index:20;left:0;right:0;top:61px;background:#fff;border:1px solid #ccd4dd;border-radius:9px;box-shadow:0 10px 25px rgba(0,0,0,.15);max-height:300px;overflow:auto;display:none}.result{padding:10px;border-bottom:1px solid #eef1f4;cursor:pointer}.result:hover{background:#f6faf7}.small{font-size:12px;color:var(--muted)}.price{color:var(--green);font-weight:800}.btn{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:pointer}.primary{background:var(--green);color:#fff}.secondary{background:#edf2f7;color:#334155}
+.wh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.warehouse{border:1px solid var(--line);border-radius:9px;padding:10px}.warehouse.ok{background:#f2faf5;border-color:#b8dcc5}.oktxt{color:var(--green);font-weight:800}.notxt{color:var(--red);font-weight:800}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:14px}table{border-collapse:collapse;width:100%;min-width:1050px}th,td{padding:9px;border-bottom:1px solid #e8ecf0;font-size:12px;text-align:left}th{background:#f8fafc}.num{text-align:right}
+.summary{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-top:14px}.totals{padding:13px}.trow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d7dde5}.grand{font-size:19px;font-weight:900;border-bottom:0}
+.actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:13px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}aside{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.summary{grid-template-columns:1fr}.wh{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="brand">Rodamientos y Accesorios</div><div class="badge">DEMO WEB</div></header>
+<div class="wrap">
+<div class="notice"><b>Demo funcional.</b> SKF tiene un catálogo maestro de 50,689 registros; esta publicación inicial usa una muestra para validar la operación del cotizador. Los almacenes son simulados.</div>
+<div class="grid">
+<aside class="card"><div style="font-weight:900;margin-bottom:9px">Menú</div><div class="nav">Inicio / Resumen</div><div class="nav active">Nueva cotización</div><div class="nav">Catálogos</div><div class="nav">Clientes</div><div class="nav">Cotizaciones</div><div class="nav">Configuración</div></aside>
+<main class="card">
+<div class="kpis">
+<div class="kpi"><strong>50,689</strong><span>SKF catálogo maestro</span></div>
+<div class="kpi"><strong>0</strong><span>CPR pendiente</span></div>
+<div class="kpi"><strong>0</strong><span>Timken pendiente</span></div>
+<div class="kpi"><strong>0</strong><span>NSK pendiente</span></div>
+</div>
+<div class="row">
+<div class="field grow"><label>Cliente</label><input id="client" placeholder="Nombre o razón social"></div>
+<div class="field"><label>Moneda</label><select id="currency"><option>USD</option><option>MXN</option></select></div>
+<div class="field"><label>Tipo de cambio</label><input id="fx" type="number" value="18.50" step=".01"></div>
+<div class="field"><label>IVA %</label><input id="vat" type="number" value="16" step=".1"></div>
+</div>
+<div class="tabs">
+<button class="tab active" data-brand="SKF">SKF</button><button class="tab" data-brand="CPR">CPR</button><button class="tab" data-brand="TIMKEN">Timken</button><button class="tab" data-brand="NSK">NSK</button>
+</div>
+<div id="brandNote" class="small" style="margin-bottom:8px">SKF activo · precios base en USD</div>
+<div class="row">
+<div class="field searchwrap"><label>Buscar producto</label><input id="search" autocomplete="off" placeholder="Ej. 6205, 22210, NU 208..."><div id="results" class="results"></div></div>
+<div class="field"><label>Cantidad</label><input id="qty" type="number" min="1" value="1"></div>
+<div class="field"><label>Descuento %</label><input id="disc" type="number" min="0" max="100" value="0"></div>
+<button id="add" class="btn primary" type="button">Agregar</button>
+</div>
+<div id="selectedInfo" class="small" style="margin-top:8px"></div>
+<div style="margin-top:13px;font-weight:900">Disponibilidad simulada</div>
+<div id="warehouses" class="wh"></div>
+<div class="small">Almacenes: La Paz, Tijuana y Mexicali · aprox. 60% de disponibilidad simulada.</div>
+<div class="tablewrap"><table><thead><tr><th>Marca</th><th>N/P</th><th>Descripción</th><th>Almacén</th><th>Entrega</th><th class="num">Cant.</th><th class="num">Lista USD</th><th class="num">Desc.</th><th class="num">Importe</th><th></th></tr></thead><tbody id="items"></tbody></table></div>
+<div class="summary">
+<div><div class="row"><div class="field grow"><label>Tiempo de entrega</label><input value="Inmediato cuando exista en almacén"></div><div class="field"><label>Vigencia</label><input value="15 días"></div></div><div class="field" style="margin-top:9px"><label>Notas</label><textarea placeholder="Observaciones"></textarea></div></div>
+<div class="card totals"><div class="trow"><span>Subtotal</span><b id="subtotal">$0.00 USD</b></div><div class="trow"><span>IVA</span><b id="tax">$0.00 USD</b></div><div class="trow grand"><span>Total</span><span id="total">$0.00 USD</span></div><div id="fxnote" class="small"></div></div>
+</div>
+<div class="actions"><button class="btn secondary" onclick="window.print()">Imprimir / PDF</button><button id="finish" class="btn primary">Finalizar cotización</button></div>
+</main></div></div>
+<script>
+const catalog=[
+{p:'6205-2Z/C3',d:'Rodamiento rígido de bolas',pr:18.75},{p:'6206-2RS1/C3',d:'Rodamiento rígido de bolas',pr:24.90},
+{p:'22210 E',d:'Rodamiento de rodillos a rótula',pr:132.40},{p:'30206 J2/Q',d:'Rodamiento de rodillos cónicos',pr:39.85},
+{p:'FY 25 TF',d:'Unidad de rodamiento',pr:44.20},{p:'6308-2Z/C3',d:'Rodamiento rígido de bolas',pr:46.50},
+{p:'NU 208 ECP',d:'Rodamiento de rodillos cilíndricos',pr:88.60},{p:'1208 EKTN9',d:'Rodamiento autoalineable de bolas',pr:72.15},
+{p:'6207-2RS1/C3',d:'Rodamiento rígido de bolas',pr:31.20},{p:'22312 E',d:'Rodamiento de rodillos a rótula',pr:246.80},
+{p:'32008 X/Q',d:'Rodamiento de rodillos cónicos',pr:58.10},{p:'UC 205',d:'Unidad de rodamiento',pr:33.40}
+];
+let brand='SKF',selected=null,lines=[];const $=id=>document.getElementById(id);
+const money=(v,c)=>new Intl.NumberFormat('en-US',{style:'currency',currency:c}).format(v||0);
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function availability(part){return ['La Paz','Tijuana','Mexicali'].map(n=>{const h=hash(part+'|'+n),ok=(h%100)<60;return{name:n,ok,stock:ok?2+((h>>>8)%28):0}})}
+function renderWh(part){const a=part?availability(part):['La Paz','Tijuana','Mexicali'].map(name=>({name,ok:null,stock:0}));$('warehouses').innerHTML=a.map(w=>'<div class="warehouse '+(w.ok===true?'ok':'')+'"><b>'+w.name+'</b><div class="'+(w.ok===true?'oktxt':w.ok===false?'notxt':'small')+'">'+(w.ok===null?'Selecciona un producto':w.ok?'Disponible · Entrega inmediata':'Sin existencia')+'</div><div class="small">'+(w.ok?'Existencia simulada: '+w.stock+' pzas':'')+'</div></div>').join('')}
+function doSearch(){const s=$('search').value.trim().toUpperCase(),box=$('results');if(brand!=='SKF'||s.length<2){box.style.display='none';return}const hits=catalog.filter(x=>(x.p+' '+x.d).toUpperCase().includes(s));box.innerHTML=hits.length?hits.map(x=>'<div class="result" data-p="'+x.p+'"><b>'+x.p+'</b><div class="small">'+x.d+' · <span class="price">'+money(x.pr,'USD')+'</span></div></div>').join(''):'<div class="result">Sin resultados en la muestra.</div>';box.style.display='block';box.querySelectorAll('[data-p]').forEach(el=>el.onclick=()=>{selected=catalog.find(x=>x.p===el.dataset.p);$('search').value=selected.p;box.style.display='none';$('selectedInfo').innerHTML='Seleccionado: <b>'+selected.p+'</b> · '+selected.d+' · '+money(selected.pr,'USD');renderWh(selected.p)})}
+$('search').oninput=doSearch;
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');brand=b.dataset.brand;selected=null;$('search').value='';$('results').style.display='none';$('search').disabled=brand!=='SKF';$('add').disabled=brand!=='SKF';$('brandNote').textContent=brand==='SKF'?'SKF activo · precios base en USD':'Catálogo '+brand+' pendiente de cargar';renderWh(null)});
+$('add').onclick=()=>{if(!selected){alert('Selecciona primero un producto.');return}const qty=Math.max(1,Math.floor(+$('qty').value||1)),disc=Math.max(0,Math.min(100,+$('disc').value||0)),wh=availability(selected.p),aw=wh.filter(w=>w.ok);lines.push({...selected,brand:'SKF',qty,disc,wh,source:aw.length?aw[0].name:'Sin existencia'});selected=null;$('search').value='';$('selectedInfo').textContent='';renderWh(null);render()};
+function render(){ $('items').innerHTML=lines.map((x,i)=>{const aw=x.wh.filter(w=>w.ok),imp=x.pr*(1-x.disc/100)*x.qty,opts=aw.length?aw.map(w=>'<option>'+w.name+' · '+w.stock+' pzas</option>').join(''):'<option>Sin existencia</option>';return '<tr><td><b>'+x.brand+'</b></td><td><b>'+x.p+'</b></td><td>'+x.d+'</td><td><select '+(aw.length?'':'disabled')+'>'+opts+'</select></td><td>'+(aw.length?'<span class="oktxt">Inmediata</span>':'<span class="notxt">Por confirmar</span>')+'</td><td class="num">'+x.qty+'</td><td class="num">'+money(x.pr,'USD')+'</td><td class="num">'+x.disc.toFixed(1)+'%</td><td class="num"><b>'+money(imp,'USD')+'</b></td><td><button class="btn secondary" data-rm="'+i+'">Quitar</button></td></tr>'}).join('');document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{lines.splice(+b.dataset.rm,1);render()});recalc()}
+function recalc(){const sub=lines.reduce((s,x)=>s+x.pr*(1-x.disc/100)*x.qty,0),vp=Math.max(0,+$('vat').value||0),tax=sub*vp/100,total=sub+tax,c=$('currency').value,fx=Math.max(.01,+$('fx').value||1),m=c==='MXN'?fx:1;$('subtotal').textContent=money(sub*m,c);$('tax').textContent=money(tax*m,c);$('total').textContent=money(total*m,c);$('fxnote').textContent=c==='MXN'?'Base '+money(total,'USD')+' · TC '+fx.toFixed(2):'Precios base en USD'}
+['currency','fx','vat'].forEach(id=>$(id).oninput=recalc);$('finish').onclick=()=>alert(lines.length?'Demo: cotización lista para guardar/generar PDF.':'Agrega al menos una partida.');renderWh(null);render();
+</script></body></html>
