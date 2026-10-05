@@ -57,7 +57,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div class="row">
 <div class="field searchwrap"><label>Buscar producto</label><input id="search" autocomplete="off" placeholder="Ej. 6205, 22210, NU 208..."><div id="results" class="results"></div></div>
 <div class="field"><label>Cantidad</label><input id="qty" type="number" min="1" value="1"></div>
-<div class="field"><label>Descuento %</label><input id="disc" type="number" min="0" max="100" value="0"></div>
+<div class="field"><label>Descuento asignado %</label><input id="disc" type="number" min="0" max="100" value="0" readonly><div id="discountNote" class="small">Selecciona cliente y marca</div></div>
 <button id="add" class="btn primary" type="button">Agregar</button>
 </div>
 <div id="selectedInfo" class="small" style="margin-top:8px"></div>
@@ -160,8 +160,8 @@ function availability(part){return ['La Paz','Tijuana','Mexicali'].map(n=>{const
 function renderWh(part){const a=part?availability(part):['La Paz','Tijuana','Mexicali'].map(name=>({name,ok:null,stock:0}));$('warehouses').innerHTML=a.map(w=>'<div class="warehouse '+(w.ok===true?'ok':'')+'"><b>'+w.name+'</b><div class="'+(w.ok===true?'oktxt':w.ok===false?'notxt':'small')+'">'+(w.ok===null?'Selecciona un producto':w.ok?'Disponible · Entrega inmediata':'Sin existencia')+'</div><div class="small">'+(w.ok?'Existencia simulada: '+w.stock+' pzas':'')+'</div></div>').join('')}
 function doSearch(){const s=$('search').value.trim().toUpperCase(),box=$('results');if(brand!=='SKF'||s.length<2){box.style.display='none';return}const hits=catalog.filter(x=>(x.p+' '+x.d).toUpperCase().includes(s));box.innerHTML=hits.length?hits.map(x=>'<div class="result" data-p="'+x.p+'"><b>'+x.p+'</b><div class="small">'+x.d+' · <span class="price">'+money(x.pr,'USD')+'</span></div></div>').join(''):'<div class="result">Sin resultados en la muestra.</div>';box.style.display='block';box.querySelectorAll('[data-p]').forEach(el=>el.onclick=()=>{selected=catalog.find(x=>x.p===el.dataset.p);$('search').value=selected.p;box.style.display='none';$('selectedInfo').innerHTML='Seleccionado: <b>'+selected.p+'</b> · '+selected.d+' · '+money(selected.pr,'USD');renderWh(selected.p)})}
 $('search').oninput=doSearch;
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');brand=b.dataset.brand;selected=null;$('search').value='';$('results').style.display='none';$('search').disabled=brand!=='SKF';$('add').disabled=brand!=='SKF';$('brandNote').textContent=brand==='SKF'?'SKF activo · precios base en USD':'Catálogo '+brand+' pendiente de cargar';renderWh(null)});
-$('add').onclick=()=>{if(!selected){alert('Selecciona primero un producto.');return}const qty=Math.max(1,Math.floor(+$('qty').value||1)),disc=Math.max(0,Math.min(100,+$('disc').value||0)),wh=availability(selected.p),aw=wh.filter(w=>w.ok);lines.push({...selected,brand:'SKF',qty,disc,wh,source:aw.length?aw[0].name:'Sin existencia'});selected=null;$('search').value='';$('selectedInfo').textContent='';renderWh(null);render()};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');brand=b.dataset.brand;selected=null;$('search').value='';$('results').style.display='none';$('search').disabled=brand!=='SKF';$('add').disabled=brand!=='SKF';$('brandNote').textContent=brand==='SKF'?'SKF activo · precios base en USD':'Catálogo '+brand+' pendiente de cargar';updateAssignedDiscount();renderWh(null)});
+$('add').onclick=()=>{if(!selected){alert('Selecciona primero un producto.');return}const qty=Math.max(1,Math.floor(+$('qty').value||1)),disc=getAssignedDiscount(),wh=availability(selected.p),aw=wh.filter(w=>w.ok);lines.push({...selected,brand:'SKF',qty,disc,wh,source:aw.length?aw[0].name:'Sin existencia'});selected=null;$('search').value='';$('selectedInfo').textContent='';renderWh(null);render()};
 function render(){ $('items').innerHTML=lines.map((x,i)=>{const aw=x.wh.filter(w=>w.ok),imp=x.pr*(1-x.disc/100)*x.qty,opts=aw.length?aw.map(w=>'<option>'+w.name+' · '+w.stock+' pzas</option>').join(''):'<option>Sin existencia</option>';return '<tr><td><b>'+x.brand+'</b></td><td><b>'+x.p+'</b></td><td>'+x.d+'</td><td><select '+(aw.length?'':'disabled')+'>'+opts+'</select></td><td>'+(aw.length?'<span class="oktxt">Inmediata</span>':'<span class="notxt">Por confirmar</span>')+'</td><td class="num">'+x.qty+'</td><td class="num">'+money(x.pr,'USD')+'</td><td class="num">'+x.disc.toFixed(1)+'%</td><td class="num"><b>'+money(imp,'USD')+'</b></td><td><button class="btn secondary" data-rm="'+i+'">Quitar</button></td></tr>'}).join('');document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{lines.splice(+b.dataset.rm,1);render()});recalc()}
 function recalc(){const sub=lines.reduce((s,x)=>s+x.pr*(1-x.disc/100)*x.qty,0),vp=Math.max(0,+$('vat').value||0),tax=sub*vp/100,total=sub+tax,c=$('currency').value,fx=Math.max(.01,+$('fx').value||1),m=c==='MXN'?fx:1;$('subtotal').textContent=money(sub*m,c);$('tax').textContent=money(tax*m,c);$('total').textContent=money(total*m,c);$('fxnote').textContent=c==='MXN'?'Base '+money(total,'USD')+' · TC '+fx.toFixed(2):'Precios base en USD'}
 
@@ -223,6 +223,25 @@ const demoClients=[
 ['C019','SEB','Tijuana','Claudia Ríos',33,39,28,28],
 ['C020','FTM','La Paz','Eduardo Molina',25,30,20,22]
 ];
+function getAssignedDiscount(){
+  const sel=document.getElementById('client');
+  const clientName=sel?sel.value:'';
+  const row=demoClients.find(x=>x[1]===clientName);
+  if(!row) return 0;
+  const idx={SKF:4,CPR:5,TIMKEN:6,NSK:7}[brand] ?? 4;
+  return Number(row[idx]||0);
+}
+function updateAssignedDiscount(){
+  const pct=getAssignedDiscount();
+  const disc=document.getElementById('disc');
+  const note=document.getElementById('discountNote');
+  if(disc) disc.value=pct;
+  if(note){
+    const sel=document.getElementById('client');
+    const clientName=sel?sel.value:'';
+    note.textContent=clientName ? ('Descuento '+brand+': '+pct.toFixed(1)+'% · aplicado automáticamente') : 'Selecciona cliente y marca';
+  }
+}
 function renderClients(){
  const body=document.getElementById('clientRows');
  if(body) body.innerHTML=demoClients.map(x=>'<tr><td><b>'+x[0]+'</b></td><td>'+x[1]+'</td><td>'+x[2]+'</td><td>'+x[3]+'</td><td>'+x[4]+'%</td><td>'+x[5]+'%</td><td>'+x[6]+'%</td><td>'+x[7]+'%</td></tr>').join('');
@@ -249,7 +268,10 @@ if(addClientDemo)addClientDemo.addEventListener('click',()=>{
  const contact=document.getElementById('newClientContact').value.trim();
  const code='C'+String(demoClients.length+1).padStart(3,'0');
  demoClients.push([code,name,branch,contact,0,0,0,0]); renderClients();
- const clientSelect=document.getElementById('client'); if(clientSelect) clientSelect.value=name;
+const clientSelector=document.getElementById('client');
+if(clientSelector) clientSelector.addEventListener('change',updateAssignedDiscount);
+updateAssignedDiscount();
+ const clientSelect=document.getElementById('client'); if(clientSelect) clientSelect.value=name; updateAssignedDiscount();
  document.getElementById('newClientName').value='';document.getElementById('newClientContact').value='';document.getElementById('newClientPhone').value='';
  alert('Cliente agregado a la vista de demostración. Los descuentos quedan en 0% hasta ser asignados por un nivel autorizado.');
 });
