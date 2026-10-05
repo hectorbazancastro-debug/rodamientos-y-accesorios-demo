@@ -10,7 +10,7 @@ header{background:linear-gradient(110deg,var(--nav2),var(--brand-blue));color:#f
 .brand-lockup{display:flex;align-items:center;gap:12px}.ryasa-logo{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;padding:4px}.brand-copy{line-height:1}.brand-copy{line-height:1}.brand-copy .ryasa{font-size:27px;font-weight:900;letter-spacing:.5px}.brand-copy .sub{font-size:10px;letter-spacing:2.1px;margin-top:5px}.badge{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:999px}
 .wrap{max-width:1450px;margin:auto;padding:16px}.notice{background:#fff8dc;border:1px solid #ead178;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:13px}
 .grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:14px}
-aside{padding:14px;height:fit-content}.nav{padding:10px 11px;border-radius:9px;margin:3px 0}.nav.active{background:var(--soft);color:var(--brand-blue);font-weight:800;border-left:4px solid var(--brand-red)}
+aside{padding:14px;height:fit-content}.nav{padding:10px 11px;border-radius:9px;margin:3px 0;cursor:pointer;user-select:none;transition:.15s}.nav:hover{background:#f4f6fb}.nav.active{background:var(--soft);color:var(--brand-blue);font-weight:800;border-left:4px solid var(--brand-red)}
 main{padding:16px;min-width:0}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.kpi{padding:12px;border:1px solid var(--line);border-radius:10px;border-top:3px solid var(--brand-blue)}.kpi strong{display:block;font-size:20px}.kpi span{font-size:12px;color:var(--muted)}
 .row{display:flex;gap:9px;flex-wrap:wrap;align-items:end}.field{display:flex;flex-direction:column;gap:5px;min-width:120px}.grow{flex:1;min-width:240px}
 label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:1px solid #cbd5df;border-radius:8px;padding:10px;font-size:14px;background:#fff}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
@@ -19,7 +19,7 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 .wh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.warehouse{border:1px solid var(--line);border-radius:9px;padding:10px}.warehouse.ok{background:#f2faf5;border-color:#b8dcc5}.oktxt{color:var(--green);font-weight:800}.notxt{color:var(--red);font-weight:800}
 .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:14px}table{border-collapse:collapse;width:100%;min-width:1050px}th,td{padding:9px;border-bottom:1px solid #e8ecf0;font-size:12px;text-align:left}th{background:#f8fafc}.num{text-align:right}
 .summary{display:grid;grid-template-columns:1fr 320px;gap:14px;margin-top:14px}.totals{padding:13px}.trow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d7dde5}.grand{font-size:19px;font-weight:900;border-bottom:0}
-.actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:13px}
+.actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:13px}.app-page{display:none}.app-page.active{display:block}.page-title{font-size:22px;font-weight:900;margin:0 0 4px}.page-sub{font-size:13px;color:var(--muted);margin-bottom:16px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.panel{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}.brand-card{border-top:4px solid var(--brand-blue)}.brand-card.red{border-top-color:var(--brand-red)}.status{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:#eef1f8;color:var(--brand-blue)}.status.pending{background:#fff3e8;color:#9a4d00}.role-list{display:grid;gap:8px}.role-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #edf0f4;padding:9px 0}.client-form{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:8px;margin:12px 0}.compact-table{min-width:760px}@media(max-width:900px){.mini-grid{grid-template-columns:1fr}.client-form{grid-template-columns:1fr}}
 @media(max-width:900px){.grid{grid-template-columns:1fr}aside{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.summary{grid-template-columns:1fr}.wh{grid-template-columns:1fr}}
 </style>
 </head>
@@ -28,8 +28,16 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div class="wrap">
 <div class="notice" style="border-left:4px solid var(--brand-red)"><b>Rodamientos y Accesorios.</b> Vista alineada a la identidad institucional de RYASA. SKF tiene un catálogo maestro de 50,689 registros; esta publicación inicial usa una muestra para validar la operación del cotizador.</div>
 <div class="grid">
-<aside class="card"><div style="font-weight:900;margin-bottom:9px">Menú</div><div class="nav">Inicio / Resumen</div><div class="nav active">Nueva cotización</div><div class="nav">Catálogos</div><div class="nav">Clientes</div><div class="nav">Cotizaciones</div><div class="nav">Configuración</div></aside>
+<aside class="card"><div style="font-weight:900;margin-bottom:9px">Menú</div>
+  <div class="nav" data-page="home">Inicio / Resumen</div>
+  <div class="nav active" data-page="quote">Nueva cotización</div>
+  <div class="nav" data-page="catalogs">Catálogos</div>
+  <div class="nav" data-page="clients">Clientes</div>
+  <div class="nav" data-page="quotes">Cotizaciones</div>
+  <div class="nav" data-page="users">Usuarios</div>
+  <div class="nav" data-page="settings">Configuración</div></aside>
 <main class="card">
+<section id="page-quote" class="app-page active">
 <div class="kpis">
 <div class="kpi" style="border-top-color:var(--brand-red)"><strong>50,689</strong><span>SKF catálogo maestro</span></div>
 <div class="kpi"><strong>0</strong><span>CPR pendiente</span></div>
@@ -62,6 +70,79 @@ label{font-size:12px;font-weight:800;color:#475569}input,select,textarea{border:
 <div class="card totals"><div class="trow"><span>Subtotal</span><b id="subtotal">$0.00 USD</b></div><div class="trow"><span>IVA</span><b id="tax">$0.00 USD</b></div><div class="trow grand"><span>Total</span><span id="total">$0.00 USD</span></div><div id="fxnote" class="small"></div></div>
 </div>
 <div class="actions"><button class="btn secondary" onclick="window.print()">Imprimir / PDF</button><button id="finish" class="btn primary">Finalizar cotización</button></div>
+</section>
+
+<section id="page-home" class="app-page">
+  <div class="page-title">Inicio / Resumen</div>
+  <div class="page-sub">Panel general del cotizador RYASA.</div>
+  <div class="kpis">
+    <div class="kpi" style="border-top-color:var(--brand-red)"><strong>50,689</strong><span>Productos SKF maestro</span></div>
+    <div class="kpi"><strong>20</strong><span>Clientes de ejemplo</span></div>
+    <div class="kpi"><strong>4</strong><span>Marcas configuradas</span></div>
+    <div class="kpi"><strong>3</strong><span>Almacenes</span></div>
+  </div>
+  <div class="mini-grid">
+    <div class="panel"><b>La Paz</b><p class="small">Almacén y cartera de clientes.</p><span class="status">Activo</span></div>
+    <div class="panel"><b>Tijuana</b><p class="small">Almacén y cartera de clientes.</p><span class="status">Activo</span></div>
+    <div class="panel"><b>Mexicali</b><p class="small">Almacén y cartera de clientes.</p><span class="status">Activo</span></div>
+  </div>
+</section>
+
+<section id="page-catalogs" class="app-page">
+  <div class="page-title">Catálogos</div>
+  <div class="page-sub">Administración de marcas y listas de precios.</div>
+  <div class="mini-grid">
+    <div class="panel brand-card red"><h3>SKF</h3><strong>50,689</strong><p class="small">Registros en catálogo maestro</p><span class="status">Cargado</span></div>
+    <div class="panel brand-card"><h3>CPR</h3><strong>0</strong><p class="small">Pendiente de cargar Excel/CSV</p><span class="status pending">Pendiente</span></div>
+    <div class="panel brand-card"><h3>Timken</h3><strong>0</strong><p class="small">Pendiente de cargar Excel/CSV</p><span class="status pending">Pendiente</span></div>
+    <div class="panel brand-card"><h3>NSK</h3><strong>0</strong><p class="small">Pendiente de cargar Excel/CSV</p><span class="status pending">Pendiente</span></div>
+  </div>
+  <div class="actions"><button class="btn primary" type="button" onclick="alert('La importación por Excel se habilitará para los niveles autorizados.')">Importar catálogo</button></div>
+</section>
+
+<section id="page-clients" class="app-page">
+  <div class="page-title">Clientes</div>
+  <div class="page-sub">Clientes de ejemplo. El Gerente de Sucursal podrá agregar nuevos clientes, pero no modificar sus niveles de descuento.</div>
+  <div class="client-form">
+    <input id="newClientName" placeholder="Razón social">
+    <select id="newClientBranch"><option>La Paz</option><option>Tijuana</option><option>Mexicali</option></select>
+    <input id="newClientContact" placeholder="Contacto">
+    <input id="newClientPhone" placeholder="Teléfono">
+    <button id="addClientDemo" class="btn primary" type="button">Agregar cliente</button>
+  </div>
+  <div class="tablewrap"><table class="compact-table"><thead><tr><th>Código</th><th>Cliente</th><th>Sucursal</th><th>Contacto</th><th>SKF</th><th>CPR</th><th>Timken</th><th>NSK</th></tr></thead><tbody id="clientRows"></tbody></table></div>
+</section>
+
+<section id="page-quotes" class="app-page">
+  <div class="page-title">Cotizaciones</div>
+  <div class="page-sub">Historial de cotizaciones guardadas.</div>
+  <div class="panel"><b>Aún no hay cotizaciones guardadas en esta vista.</b><p class="small">Al conectar la pantalla al backend aparecerán aquí el folio, cliente, vendedor, fecha, total y estatus.</p></div>
+  <div class="actions"><button class="btn primary" data-go="quote" type="button">Crear nueva cotización</button></div>
+</section>
+
+<section id="page-users" class="app-page">
+  <div class="page-title">Usuarios</div>
+  <div class="page-sub">Niveles configurados para Rodamientos y Accesorios.</div>
+  <div class="panel role-list">
+    <div class="role-row"><b>Administrador Master</b><span>Control total y modificaciones de la aplicación</span></div>
+    <div class="role-row"><b>Administrador</b><span>Usuarios, factores de descuento y cotización</span></div>
+    <div class="role-row"><b>Director Comercial</b><span>Niveles de descuento</span></div>
+    <div class="role-row"><b>Gerente Regional</b><span>Cotización</span></div>
+    <div class="role-row"><b>Gerente de Sucursal</b><span>Cotización + alta de clientes</span></div>
+    <div class="role-row"><b>Vendedor</b><span>Cotización</span></div>
+  </div>
+</section>
+
+<section id="page-settings" class="app-page">
+  <div class="page-title">Configuración</div>
+  <div class="page-sub">Parámetros generales del cotizador.</div>
+  <div class="mini-grid">
+    <div class="panel"><b>Moneda base</b><p>USD</p></div>
+    <div class="panel"><b>IVA predeterminado</b><p>16%</p></div>
+    <div class="panel"><b>Sucursales</b><p>La Paz · Tijuana · Mexicali</p></div>
+  </div>
+  <div class="panel" style="margin-top:12px"><b>Identidad</b><p class="small">RYASA – Rodamientos y Accesorios · Azul #1D2B67 · Rojo #ED1C24</p></div>
+</section>
 </main></div></div>
 <script>
 const catalog=[
@@ -84,4 +165,52 @@ $('add').onclick=()=>{if(!selected){alert('Selecciona primero un producto.');ret
 function render(){ $('items').innerHTML=lines.map((x,i)=>{const aw=x.wh.filter(w=>w.ok),imp=x.pr*(1-x.disc/100)*x.qty,opts=aw.length?aw.map(w=>'<option>'+w.name+' · '+w.stock+' pzas</option>').join(''):'<option>Sin existencia</option>';return '<tr><td><b>'+x.brand+'</b></td><td><b>'+x.p+'</b></td><td>'+x.d+'</td><td><select '+(aw.length?'':'disabled')+'>'+opts+'</select></td><td>'+(aw.length?'<span class="oktxt">Inmediata</span>':'<span class="notxt">Por confirmar</span>')+'</td><td class="num">'+x.qty+'</td><td class="num">'+money(x.pr,'USD')+'</td><td class="num">'+x.disc.toFixed(1)+'%</td><td class="num"><b>'+money(imp,'USD')+'</b></td><td><button class="btn secondary" data-rm="'+i+'">Quitar</button></td></tr>'}).join('');document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{lines.splice(+b.dataset.rm,1);render()});recalc()}
 function recalc(){const sub=lines.reduce((s,x)=>s+x.pr*(1-x.disc/100)*x.qty,0),vp=Math.max(0,+$('vat').value||0),tax=sub*vp/100,total=sub+tax,c=$('currency').value,fx=Math.max(.01,+$('fx').value||1),m=c==='MXN'?fx:1;$('subtotal').textContent=money(sub*m,c);$('tax').textContent=money(tax*m,c);$('total').textContent=money(total*m,c);$('fxnote').textContent=c==='MXN'?'Base '+money(total,'USD')+' · TC '+fx.toFixed(2):'Precios base en USD'}
 ['currency','fx','vat'].forEach(id=>$(id).oninput=recalc);$('finish').onclick=()=>alert(lines.length?'Demo: cotización lista para guardar/generar PDF.':'Agrega al menos una partida.');renderWh(null);render();
+
+const demoClients=[
+['C001','Industrias del Pacífico','La Paz','Carlos Mendoza',27,33,22,24],
+['C002','Servicios Mineros del Sur','La Paz','Laura Pérez',29,36,24,26],
+['C003','Refacciones Peninsulares','La Paz','Miguel Torres',31,39,26,28],
+['C004','Transportes Baja Sur','La Paz','Ana Ruiz',33,30,28,22],
+['C005','MIGSA','La Paz','Jorge León',25,33,20,24],
+['C006','Manufacturas del Norte','Tijuana','Daniel Castro',27,36,22,26],
+['C007','CITSA','Tijuana','María López',29,39,24,28],
+['C008','MRO Frontera','Tijuana','Ricardo Gómez',31,30,26,22],
+['C009','Automatización Baja','Tijuana','Patricia Díaz',33,33,28,24],
+['C010','Proveedora Otay','Tijuana','Luis Navarro',25,36,20,26],
+['C011','Aero Componentes','Mexicali','Fernanda Soto',27,39,22,28],
+['C012','MPD','Mexicali','Roberto Vega',29,30,24,22],
+['C013','Equipos del Valle','Mexicali','Gabriela Mora',31,33,26,24],
+['C014','PMC','Mexicali','Hugo Salas',33,36,28,26],
+['C015','STM','Mexicali','Alejandra Núñez',25,39,20,28],
+['C016','MBP','La Paz','Sergio Ramos',27,30,22,22],
+['C017','MIP','Tijuana','Mónica Flores',29,33,24,24],
+['C018','ERN','Mexicali','Iván Ortega',31,36,26,26],
+['C019','SEB','Tijuana','Claudia Ríos',33,39,28,28],
+['C020','FTM','La Paz','Eduardo Molina',25,30,20,22]
+];
+function renderClients(){
+ const body=document.getElementById('clientRows'); if(!body)return;
+ body.innerHTML=demoClients.map(x=>'<tr><td><b>'+x[0]+'</b></td><td>'+x[1]+'</td><td>'+x[2]+'</td><td>'+x[3]+'</td><td>'+x[4]+'%</td><td>'+x[5]+'%</td><td>'+x[6]+'%</td><td>'+x[7]+'%</td></tr>').join('');
+}
+function showPage(page){
+ document.querySelectorAll('.app-page').forEach(x=>x.classList.remove('active'));
+ const target=document.getElementById('page-'+page); if(target)target.classList.add('active');
+ document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav[data-page]').forEach(n=>n.addEventListener('click',()=>showPage(n.dataset.page)));
+document.querySelectorAll('[data-go]').forEach(n=>n.addEventListener('click',()=>showPage(n.dataset.go)));
+const addClientDemo=document.getElementById('addClientDemo');
+if(addClientDemo)addClientDemo.addEventListener('click',()=>{
+ const name=document.getElementById('newClientName').value.trim();
+ if(!name){alert('Escribe la razón social del cliente.');return}
+ const branch=document.getElementById('newClientBranch').value;
+ const contact=document.getElementById('newClientContact').value.trim();
+ const code='C'+String(demoClients.length+1).padStart(3,'0');
+ demoClients.push([code,name,branch,contact,0,0,0,0]); renderClients();
+ document.getElementById('newClientName').value='';document.getElementById('newClientContact').value='';document.getElementById('newClientPhone').value='';
+ alert('Cliente agregado a la vista de demostración. Los descuentos quedan en 0% hasta ser asignados por un nivel autorizado.');
+});
+renderClients();
+
 </script></body></html>
